@@ -462,6 +462,13 @@
         $("#addressBox").focus();
     };
 
+    app.loadAddress = function () {
+        if (timer != undefined) {
+            clearTimeout(timer);
+        }
+        app.loadJSON($("#addressBox")[0].value);
+    };
+
     app.onactivated = function (args) {
         if (args.detail.kind === activation.ActivationKind.launch) {
             var view = ApplicationView.getForCurrentView();
@@ -471,21 +478,18 @@
             var appData = Windows.Storage.ApplicationData.current.localSettings;
             $("#countdown").hide();
             $("#goButton").on("click", function(e) {
-                if (timer != undefined) {
-                    clearTimeout(timer);
-                }
-                app.loadJSON($("#addressBox")[0].value);
+                app.loadAddress();
             });
             $("#addressBox").on("keydown", function (e) {
                 if (e.keyCode == 13) {
                     e.preventDefault();
-                    $("#goButton").click();
+                    app.loadAddress();
                 }
             });
             if (appData.values["url"]) {
                 var url = appData.values["url"];
                 $("#addressBox").val(url);
-                $("#goButton").click();
+                app.loadAddress();
             }
 
             $("body").on("keyup", function (e) {

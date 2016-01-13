@@ -73,10 +73,10 @@
     <Content Include="images\Wide310x150Logo.scale-200.png" />
     <Content Include="js\default.js" />
     <Content Include="css\default.css" />
-    <Content Include="js\third-party\jquery-2.1.4.min.js" />
     <Content Include="js\third-party\jquery.isinview.min.js" />
     <Content Include="js\third-party\jquery.transit.min.js" />
     <Content Include="js\third-party\md5.js" />
+    <Content Include="js\third-party\jquery.min.js" />
     <Content Include="js\third-party\vex.combined.min.js" />
     <Content Include="LICENSE.md" />
     <Content Include="README.md" />
