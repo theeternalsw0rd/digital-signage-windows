@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+  <Identity Name="theeternalsw0rd.DS" Version="1.0.0.0" Publisher="CN=micah.bucy" />
+  <mp:PhoneIdentity PhoneProductId="b7c362b2-61fb-4fbc-ae2e-d6a9309fa87d" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName>DigitalSignage</DisplayName>
+    <PublisherDisplayName>theeternalsw0rd</PublisherDisplayName>
+    <Logo>images\storelogo.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" StartPage="default.html">
+      <uap:VisualElements DisplayName="DigitalSignage" Description="This application aims to make displaying a fullscreen slideshow on Windows 10+ simple by receiving a JSON response from a server. This application can handle jpeg and png images and any video format supported by Microsoft's Edge browser. This application does not support subtitles or captions in the videos. This product uses third-party open source libraries. Please see https://github.com/theeternalsw0rd/digital-signage-windows for more information on the licensing of these libraries as well as documentation on the JSON response format." BackgroundColor="transparent" Square150x150Logo="images\Square150x150Logo.png" Square44x44Logo="images\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="images\Wide310x150Logo.png">
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="images\splashscreen.png" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <Capability Name="privateNetworkClientServer" />
+  </Capabilities>
+</Package>
