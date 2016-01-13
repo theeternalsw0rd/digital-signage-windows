@@ -174,14 +174,13 @@
 
     app.checkLoadStatus = function () {
         var finished = true;
-        for(var i; i<slideshowLoader.length;i++) {
-            if (item.status == 0) {
+        $.each(slideshowLoader, function () {
+            if (this.status == 0) {
                 finished = false;
-                break;
+                return false;
             }
-        }
+        });
         if (!finished) {
-            console.log("Still loading");
             setTimeout(app.checkLoadStatus, 100);
         }
         else {

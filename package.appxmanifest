@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="theeternalsw0rd.DS" Version="1.0.0.0" Publisher="CN=micah.bucy" />
+  <Identity Name="theeternalsw0rd.DS" Version="1.0.1.0" Publisher="CN=micah.bucy" />
   <mp:PhoneIdentity PhoneProductId="b7c362b2-61fb-4fbc-ae2e-d6a9309fa87d" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>DigitalSignage</DisplayName>
