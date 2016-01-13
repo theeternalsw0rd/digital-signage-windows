@@ -384,6 +384,11 @@
     };
 
     app.loadJSON = function (url) {
+        // check if still processing the last load request and return if so
+        if (loading) {
+            return;
+        }
+        loading = true;
         var uri;
         try {
             uri = new Windows.Foundation.Uri(url);
@@ -450,6 +455,7 @@
     app.reset = function () {
         console.log("Resetting app");
         initializing = true;
+        loading = false;
         updateTimer = clearInterval(updateTimer);
         if (countdownTimer != undefined) {
             countdownTimer = clearInterval(countdownTimer);
