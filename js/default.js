@@ -72,8 +72,10 @@
         {}
     );
 
-    app.downloadItem = function (item, filename) {
+    app.downloadItem = function (item) {
+        var filename = item.filename;
         if (updateTimer == undefined) {
+            console.log("updateTimer is undefined, aborting download of " + filename);
             return;
         }
         Windows.Storage.ApplicationData.current.localFolder.createFileAsync(filename).done(function (file) {
@@ -85,22 +87,24 @@
     };
 
     app.loadItem = function (item) {
+        var filename = item.filename;
         if (updateTimer == undefined) {
+            console.log("updateTimer is undefined, aborting loading " + filename);
             return;
         }
-        var filename = item.filename;
         if (item.status == 1) {
+            console.log(filename + " already exists, skipping download.");
             return;
         }
         var backgroundDownloader = new Windows.Networking.BackgroundTransfer.BackgroundDownloader();
         Windows.Storage.ApplicationData.current.localFolder.tryGetItemAsync(filename).done(function (file) {
             if (file !== null) {
                 file.deleteAsync().done(function () {
-                    app.downloadItem(item, filename);
+                    app.downloadItem(item);
                 });
             }
             else {
-                app.downloadItem(item, filename);
+                app.downloadItem(item);
             }
         });
     };
@@ -154,6 +158,7 @@
 
     app.reloadSlideshow = function () {
         if (updateTimer == undefined) {
+            console.log("updateTimer is undefined, not reloading show");
             return;
         }
         slideshow = slideshowLoader;
@@ -176,6 +181,7 @@
             }
         }
         if (!finished) {
+            console.log("Still loading");
             setTimeout(app.checkLoadStatus, 100);
         }
         else {
@@ -203,9 +209,11 @@
                 });
             });
             if (initializing) {
+                console.log("Initializing");
                 app.reloadSlideshow();
             }
             else {
+                console.log("Update is ready.");
                 updateReady = true;
             }
         }
@@ -247,7 +255,8 @@
     app.loadItems = function (data) {
         $.each(data.items, function () {
             if (updateTimer == undefined) {
-                return;
+                console.log("updateTimer is undefined, aborting current loading of items.");
+                return false;
             }
             var path;
             var url = this.url;
@@ -271,6 +280,7 @@
             var length = slideshowLoader.length
             Windows.Storage.ApplicationData.current.localFolder.tryGetItemAsync(filename).done(function (file) {
                 if (updateTimer == undefined) {
+                    console.log("updateTimer is undefined, no need to load items.");
                     return;
                 }
                 var item = slideshowLoader[length - 1];
@@ -278,6 +288,10 @@
                     var hashProvider = Windows.Security.Cryptography.Core.HashAlgorithmProvider.openAlgorithm(Windows.Security.Cryptography.Core.HashAlgorithmNames.md5);
                     Windows.Storage.FileIO.readBufferAsync(file).then(
                         function (buffer) {
+                            if (updateTimer == undefined) {
+                                console.log("updateTimer is undefined, no need to verify existing item.");
+                                return;
+                            }
                             var outputBuffer = hashProvider.hashData(buffer);
                             var md5sum = Windows.Security.Cryptography.CryptographicBuffer.encodeToHexString(outputBuffer);
                             if (md5sum != server_md5sum) {
@@ -296,6 +310,7 @@
             });
         });
         if (updateTimer == undefined) {
+            console.log("updateTimer is undefined, no need to check current load status.");
             return;
         }
         setTimeout(app.checkLoadStatus, 100);
@@ -394,11 +409,13 @@
                     var json = JSON.parse(response);
                     $("#form").hide();
                     if (updateTimer == undefined) {
+                        console.log("Setting updateTimer.");
                         updateTimer = setInterval(app.loadJSON, 30000, url);
                     }
                 }
                 catch (e) {
                     alert("Could not parse response as JSON", function (value) {
+                        $("#form").show();
                         $("#addressBox").focus();
                     });
                     return;
@@ -432,6 +449,7 @@
     };
 
     app.reset = function () {
+        console.log("Resetting app");
         initializing = true;
         updateTimer = clearInterval(updateTimer);
         if (countdownTimer != undefined) {
